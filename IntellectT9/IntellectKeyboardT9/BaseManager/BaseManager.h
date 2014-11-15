@@ -16,7 +16,7 @@
     return sharedInstance;                                                         \
 }
 
-#define MANAGER [BaseManager sharedInstance];
+#define MANAGER [BaseManager sharedInstance]
 
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
@@ -34,6 +34,6 @@ typedef enum{
 
 SINGLETON_INTERFACE
 
-- (NSArray *)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSUInteger)key;
+- (NSArray *)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString *)key;
 
 @end

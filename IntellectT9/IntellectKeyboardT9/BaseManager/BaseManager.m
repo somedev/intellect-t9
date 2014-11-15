@@ -26,14 +26,17 @@ SINGLETON_IMPLEMENTATION(BaseManager)
 {
     self = [super init];
     if (self) {
+        
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Words.realm"];
-        _realm = [RLMRealm realmWithPath:path];
+        NSError *error;
+        _realm = [RLMRealm realmWithPath:path readOnly:YES error:&error];
+        
     }
     
     return self;
 }
 
-- (NSArray *)wordsForLanguage:(int)language type:(int)type forKey:(NSUInteger)key
+- (NSArray *)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString *)key
 {
     Class lanClass;
     switch (type) {
@@ -51,11 +54,11 @@ SINGLETON_IMPLEMENTATION(BaseManager)
             typeKey = @"abckey";
             break;
         default:
-            typeKey = @"qwertkey";
+            typeKey = @"qwrtykey";
             break;
     }
     
-    RLMResults *words = [lanClass objectsWhere:@"%@ = '%lu'",typeKey,key];
+    RLMResults *words = [lanClass objectsWhere:@"%@ = '%@'",typeKey,key];
     
     return nil;
 }

@@ -11,8 +11,8 @@
 @interface RWord : RLMObject
 
 @property NSString *word;
-@property NSInteger qwrtykey;
-@property NSUInteger abckey;
+@property NSString *qwrtykey;
+@property NSString *abckey;
 @property NSUInteger frequency;
 
 @end
