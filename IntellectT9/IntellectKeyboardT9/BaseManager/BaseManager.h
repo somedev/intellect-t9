@@ -21,6 +21,8 @@
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
 
+typedef void (^BaseManagerSearchResult)(NSArray *);
+
 typedef enum{
     Eng = 0,
     Rus
@@ -32,8 +34,12 @@ typedef enum{
 }TypeKeys;
 @interface BaseManager : NSObject
 
+@property (nonatomic,assign) Language language;
+@property (nonatomic,assign) TypeKeys type;
+
 SINGLETON_INTERFACE
 
 - (NSArray *)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString *)key;
+- (void)wordsForKey:(NSString *)key result:(BaseManagerSearchResult)resultBlock;
 
 @end
