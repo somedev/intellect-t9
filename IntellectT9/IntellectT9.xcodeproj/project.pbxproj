@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10763BAC1A17912E00613BB3 /* BaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BA41A17912E00613BB3 /* BaseManager.m */; };
-		10763BAD1A17912E00613BB3 /* RWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BA71A17912E00613BB3 /* RWord.m */; };
-		10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BA91A17912E00613BB3 /* RWordEng.m */; };
-		10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BAB1A17912E00613BB3 /* RWordRus.m */; };
-		69CB3F5AF6F84CD8854D717B /* libPods-IntellectKeyboardT9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E59939AA7BF4D9DBA9930BF /* libPods-IntellectKeyboardT9.a */; };
 		73E32A6A1A17545D00EB4BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A691A17545D00EB4BEA /* main.m */; };
 		73E32A6D1A17545D00EB4BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6C1A17545D00EB4BEA /* AppDelegate.m */; };
 		73E32A701A17545D00EB4BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6F1A17545D00EB4BEA /* ViewController.m */; };
@@ -21,6 +16,8 @@
 		73E32A841A17545D00EB4BEA /* IntellectT9Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A831A17545D00EB4BEA /* IntellectT9Tests.m */; };
 		73E6D2181A1769EA003BCF03 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */; };
 		73E6D21B1A1769EA003BCF03 /* IntellectKeyboardT9.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73E6D2121A1769EA003BCF03 /* IntellectKeyboardT9.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		73E6D2211A177D9B003BCF03 /* ISKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73E6D2201A177D9B003BCF03 /* ISKeyboardView.xib */; };
+		73E6D2241A177E51003BCF03 /* ISKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E6D2231A177E51003BCF03 /* ISKeyboardView.m */; };
 		87DC319EE43B0B6A60D7054F /* libPods-IntellectT9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5F8FA6B1C83120865956F9 /* libPods-IntellectT9.a */; };
 /* End PBXBuildFile section */
 
@@ -56,17 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		10763BA31A17912E00613BB3 /* BaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseManager.h; sourceTree = "<group>"; };
-		10763BA41A17912E00613BB3 /* BaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseManager.m; sourceTree = "<group>"; };
-		10763BA61A17912E00613BB3 /* RWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWord.h; sourceTree = "<group>"; };
-		10763BA71A17912E00613BB3 /* RWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWord.m; sourceTree = "<group>"; };
-		10763BA81A17912E00613BB3 /* RWordEng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWordEng.h; sourceTree = "<group>"; };
-		10763BA91A17912E00613BB3 /* RWordEng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWordEng.m; sourceTree = "<group>"; };
-		10763BAA1A17912E00613BB3 /* RWordRus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWordRus.h; sourceTree = "<group>"; };
-		10763BAB1A17912E00613BB3 /* RWordRus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWordRus.m; sourceTree = "<group>"; };
-		24FB37919DD149C7BABA3A73 /* Pods-IntellectKeyboardT9.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntellectKeyboardT9.xcconfig"; path = "../Pods/Pods-IntellectKeyboardT9.xcconfig"; sourceTree = "<group>"; };
 		3A6087F3E67EC670629B27C0 /* Pods-IntellectT9.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntellectT9.release.xcconfig"; path = "../Pods/Target Support Files/Pods-IntellectT9/Pods-IntellectT9.release.xcconfig"; sourceTree = "<group>"; };
-		5E59939AA7BF4D9DBA9930BF /* libPods-IntellectKeyboardT9.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntellectKeyboardT9.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E32A641A17545D00EB4BEA /* IntellectT9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntellectT9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E32A681A17545D00EB4BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E32A691A17545D00EB4BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -84,6 +71,9 @@
 		73E6D2151A1769EA003BCF03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E6D2161A1769EA003BCF03 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		73E6D2201A177D9B003BCF03 /* ISKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISKeyboardView.xib; sourceTree = "<group>"; };
+		73E6D2221A177E51003BCF03 /* ISKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISKeyboardView.h; sourceTree = "<group>"; };
+		73E6D2231A177E51003BCF03 /* ISKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISKeyboardView.m; sourceTree = "<group>"; };
 		7F29089B2FFFA18DB4EC6B97 /* Pods-IntellectT9.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntellectT9.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-IntellectT9/Pods-IntellectT9.debug.xcconfig"; sourceTree = "<group>"; };
 		AA5F8FA6B1C83120865956F9 /* libPods-IntellectT9.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntellectT9.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,36 +98,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69CB3F5AF6F84CD8854D717B /* libPods-IntellectKeyboardT9.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		10763BA21A17912E00613BB3 /* BaseManager */ = {
-			isa = PBXGroup;
-			children = (
-				10763BA31A17912E00613BB3 /* BaseManager.h */,
-				10763BA41A17912E00613BB3 /* BaseManager.m */,
-				10763BA51A17912E00613BB3 /* Models */,
-			);
-			path = BaseManager;
-			sourceTree = "<group>";
-		};
-		10763BA51A17912E00613BB3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				10763BA61A17912E00613BB3 /* RWord.h */,
-				10763BA71A17912E00613BB3 /* RWord.m */,
-				10763BA81A17912E00613BB3 /* RWordEng.h */,
-				10763BA91A17912E00613BB3 /* RWordEng.m */,
-				10763BAA1A17912E00613BB3 /* RWordRus.h */,
-				10763BAB1A17912E00613BB3 /* RWordRus.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		12878003C1EA4812BB67CCF7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				AA5F8FA6B1C83120865956F9 /* libPods-IntellectT9.a */,
-				5E59939AA7BF4D9DBA9930BF /* libPods-IntellectKeyboardT9.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,7 +130,6 @@
 				73E32A651A17545D00EB4BEA /* Products */,
 				12878003C1EA4812BB67CCF7 /* Pods */,
 				26B25EECA0011B6353E4EAED /* Frameworks */,
-				24FB37919DD149C7BABA3A73 /* Pods-IntellectKeyboardT9.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -223,10 +187,12 @@
 		73E6D2131A1769EA003BCF03 /* IntellectKeyboardT9 */ = {
 			isa = PBXGroup;
 			children = (
-				10763BA21A17912E00613BB3 /* BaseManager */,
+				73E6D2141A1769EA003BCF03 /* Supporting Files */,
 				73E6D2161A1769EA003BCF03 /* KeyboardViewController.h */,
 				73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */,
-				73E6D2141A1769EA003BCF03 /* Supporting Files */,
+				73E6D2201A177D9B003BCF03 /* ISKeyboardView.xib */,
+				73E6D2221A177E51003BCF03 /* ISKeyboardView.h */,
+				73E6D2231A177E51003BCF03 /* ISKeyboardView.m */,
 			);
 			path = IntellectKeyboardT9;
 			sourceTree = "<group>";
@@ -285,11 +251,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73E6D21E1A1769EA003BCF03 /* Build configuration list for PBXNativeTarget "IntellectKeyboardT9" */;
 			buildPhases = (
-				3C48FDAFF66C421FB8C2E1E9 /* Check Pods Manifest.lock */,
 				73E6D20E1A1769EA003BCF03 /* Sources */,
 				73E6D20F1A1769EA003BCF03 /* Frameworks */,
 				73E6D2101A1769EA003BCF03 /* Resources */,
-				CDDDBADB235141A5BA3E3CD6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,27 +329,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73E6D2211A177D9B003BCF03 /* ISKeyboardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3C48FDAFF66C421FB8C2E1E9 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		485F63E04C73E219C20C3D24 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,21 +366,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		CDDDBADB235141A5BA3E3CD6 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-IntellectKeyboardT9-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -456,11 +391,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10763BAD1A17912E00613BB3 /* RWord.m in Sources */,
-				10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */,
-				10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */,
-				10763BAC1A17912E00613BB3 /* BaseManager.m in Sources */,
 				73E6D2181A1769EA003BCF03 /* KeyboardViewController.m in Sources */,
+				73E6D2241A177E51003BCF03 /* ISKeyboardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,7 +569,6 @@
 		};
 		73E6D21C1A1769EA003BCF03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24FB37919DD149C7BABA3A73 /* Pods-IntellectKeyboardT9.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -653,7 +584,6 @@
 		};
 		73E6D21D1A1769EA003BCF03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24FB37919DD149C7BABA3A73 /* Pods-IntellectKeyboardT9.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = IntellectKeyboardT9/Info.plist;
@@ -700,7 +630,6 @@
 				73E6D21D1A1769EA003BCF03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
