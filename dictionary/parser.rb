@@ -54,8 +54,9 @@ end
 
 def save_csv_file(file_name, words_list)
   CSV.open(file_name, 'w') do |csv|
+    csv << ['Word', 'Frequency', 'Abc Hash', 'Qwerty Hash']
     words_list.sort.each do |word_hash|
-      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash], word_hash[1][:qwerty_hash]]
+      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash], word_hash[1][:qwerty_hash]] if word_hash[1][:frequency] > 1
     end
   end
 end
@@ -67,7 +68,7 @@ Dir['*.txt'].each do |file_name|
     add_new_words(line, words_list)
   end
 end
-p words_list
+# p words_list
 
 save_csv_file('result.csv', words_list)
 
