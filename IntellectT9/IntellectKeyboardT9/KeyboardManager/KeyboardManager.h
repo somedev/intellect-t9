@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, PressedKeyType) {
 @interface KeyboardManager : NSObject
 SINGLETON_INTERFACE
 
+@property (nonatomic, copy) void (^predictionUpdateCallback)(NSArray* results);
+
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType textInputProxy:(id<UITextDocumentProxy>)textInputProxy;
 
 @end
