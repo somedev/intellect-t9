@@ -64,6 +64,14 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
     // been updated.
 }
 
+- (void)selectionWillChange:(id<UITextInput>)textInput
+{
+}
+
+- (void)selectionDidChange:(id<UITextInput>)textInput
+{
+}
+
 #pragma mark - Utils
 - (void)loadKeyboardNib
 {

@@ -72,6 +72,8 @@
 		7373A6571A17AE1D00BF6012 /* ISKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISKeyboardView.h; sourceTree = "<group>"; };
 		7373A6581A17AE1D00BF6012 /* ISKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISKeyboardView.m; sourceTree = "<group>"; };
 		7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISKeyboardView.xib; sourceTree = "<group>"; };
+		7373A65C1A17B8CB00BF6012 /* IntellectKeyboardT9.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = IntellectKeyboardT9.entitlements; sourceTree = "<group>"; };
+		7373A65D1A17B8D800BF6012 /* IntellectT9.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = IntellectT9.entitlements; sourceTree = "<group>"; };
 		73E32A641A17545D00EB4BEA /* IntellectT9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntellectT9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E32A681A17545D00EB4BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E32A691A17545D00EB4BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		73E32A661A17545D00EB4BEA /* IntellectT9 */ = {
 			isa = PBXGroup;
 			children = (
+				7373A65D1A17B8D800BF6012 /* IntellectT9.entitlements */,
 				73E32A6B1A17545D00EB4BEA /* AppDelegate.h */,
 				73E32A6C1A17545D00EB4BEA /* AppDelegate.m */,
 				73E32A6E1A17545D00EB4BEA /* ViewController.h */,
@@ -220,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				10763BA21A17912E00613BB3 /* BaseManager */,
+				7373A65C1A17B8CB00BF6012 /* IntellectKeyboardT9.entitlements */,
 				7373A6571A17AE1D00BF6012 /* ISKeyboardView.h */,
 				7373A6581A17AE1D00BF6012 /* ISKeyboardView.m */,
 				7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */,
@@ -319,6 +323,11 @@
 					73E32A631A17545D00EB4BEA = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 5U67EGLCUP;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					73E32A7C1A17545D00EB4BEA = {
 						CreatedOnToolsVersion = 6.1;
@@ -327,6 +336,11 @@
 					73E6D2111A1769EA003BCF03 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 5U67EGLCUP;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -559,11 +573,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IntellectT9/IntellectT9.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IntellectT9/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -571,11 +588,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IntellectT9/IntellectT9.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = IntellectT9/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -617,7 +637,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F858FC24555B5F5FDAEBEEFB /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = IntellectKeyboardT9/IntellectKeyboardT9.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -637,6 +659,7 @@
 				INFOPLIST_FILE = IntellectKeyboardT9/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -645,7 +668,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96FDF4D8EC71B9E6C3AAD7D7 /* Pods.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = IntellectKeyboardT9/IntellectKeyboardT9.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Realm\"",
@@ -661,6 +686,7 @@
 				INFOPLIST_FILE = IntellectKeyboardT9/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
