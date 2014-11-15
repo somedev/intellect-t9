@@ -48,8 +48,13 @@ SINGLETON_IMPLEMENTATION(BaseManager)
 - (void)wordsForKey:(NSString*)key language:(Language)language type:(TypeKeys)type result:(BaseManagerSearchResult)resultBlock
 {
     __weak BaseManager* wSelf = self;
-    NSArray* result = [wSelf wordsForLanguage:language type:type forKey:key];
-    resultBlock(result);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *result = [wSelf wordsForLanguage:language type:type forKey:key];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            resultBlock(result);
+        });
+    });
+
 }
 
 - (NSArray*)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key
@@ -77,7 +82,7 @@ SINGLETON_IMPLEMENTATION(BaseManager)
 
     RLMResults* results;
 
-    switch (type) {
+    switch (language) {
     case Rus:
         results = [RWordRus objectsInRealm:curentRealm where:query];
         break;
@@ -86,7 +91,7 @@ SINGLETON_IMPLEMENTATION(BaseManager)
         break;
     }
     
-    DLog(@" type %@",[results objectClassName]);
+    DLog(@" type %@ qr %@",[results objectClassName],typeKey);
     
     results = [results sortedResultsUsingProperty:@"frequency" ascending:NO];
 
