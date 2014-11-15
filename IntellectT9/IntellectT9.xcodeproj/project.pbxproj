@@ -155,6 +155,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7373A65E1A17BC7200BF6012 /* KeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = KeyboardManager;
+			sourceTree = "<group>";
+		};
 		73E32A5B1A17545D00EB4BEA = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +229,7 @@
 		73E6D2131A1769EA003BCF03 /* IntellectKeyboardT9 */ = {
 			isa = PBXGroup;
 			children = (
+				7373A65E1A17BC7200BF6012 /* KeyboardManager */,
 				10763BA21A17912E00613BB3 /* BaseManager */,
 				7373A65C1A17B8CB00BF6012 /* IntellectKeyboardT9.entitlements */,
 				7373A6571A17AE1D00BF6012 /* ISKeyboardView.h */,
