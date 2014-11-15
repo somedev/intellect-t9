@@ -7,6 +7,7 @@
 //
 
 #import "KeyboardViewController.h"
+#import "KeyboardManager.h"
 #import "ISKeyboardView.h"
 
 #pragma mark - Constants
@@ -93,56 +94,15 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 
     __weak typeof(self) wself = self;
     self.mainKeyboardView.keyPressedCallback = ^(PressedKeyType keyType) {
-        
         switch (keyType) {
-            case PressedKeyType1:
-            
-                break;
-            case PressedKeyType2:
-                
-                break;
-            case PressedKeyType3:
-                
-                break;
-            case PressedKeyType4:
-                
-                break;
-            case PressedKeyType5:
-                
-                break;
-            case PressedKeyType6:
-                
-                break;
-            case PressedKeyType7:
-                
-                break;
-            case PressedKeyType8:
-                
-                break;
-            case PressedKeyType9:
-                
-                break;
-            case PressedKeyType0:
-                
-                break;
-            case PressedKeyTypeShift:
-                
-                break;
-            case PressedKeyTypeBackSpace:
-                
-                break;
-            case PressedKeyTypeSmiles:
-                
-                break;
-            case PressedKeyTypeEnter:
-                
-                break;
             case PressedKeyTypeNextKeyboard:
                 [wself.view layoutIfNeeded];
                 [wself advanceToNextInputMode];
                 break;
                 
             default:
+                [[KeyboardManager sharedInstance] processKeyPressWithPressedKeyType:keyType
+                                                                     textInputProxy:wself.textDocumentProxy];
                 break;
         }
     };

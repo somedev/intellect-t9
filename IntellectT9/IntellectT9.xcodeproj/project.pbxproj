@@ -14,6 +14,8 @@
 		10763BB31A17A18600613BB3 /* Words.realm in Resources */ = {isa = PBXBuildFile; fileRef = 10763BB21A17A18600613BB3 /* Words.realm */; };
 		7373A65A1A17AE1D00BF6012 /* ISKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6581A17AE1D00BF6012 /* ISKeyboardView.m */; };
 		7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */; };
+		7373A6611A17C36D00BF6012 /* KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6601A17C36D00BF6012 /* KeyboardManager.m */; };
+		7373A6641A17D51400BF6012 /* EPStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6631A17D51400BF6012 /* EPStack.m */; };
 		73E32A6A1A17545D00EB4BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A691A17545D00EB4BEA /* main.m */; };
 		73E32A6D1A17545D00EB4BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6C1A17545D00EB4BEA /* AppDelegate.m */; };
 		73E32A701A17545D00EB4BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6F1A17545D00EB4BEA /* ViewController.m */; };
@@ -74,6 +76,11 @@
 		7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISKeyboardView.xib; sourceTree = "<group>"; };
 		7373A65C1A17B8CB00BF6012 /* IntellectKeyboardT9.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = IntellectKeyboardT9.entitlements; sourceTree = "<group>"; };
 		7373A65D1A17B8D800BF6012 /* IntellectT9.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = IntellectT9.entitlements; sourceTree = "<group>"; };
+		7373A65F1A17C36D00BF6012 /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardManager.h; path = KeyboardManager/KeyboardManager.h; sourceTree = "<group>"; };
+		7373A6601A17C36D00BF6012 /* KeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyboardManager.m; path = KeyboardManager/KeyboardManager.m; sourceTree = "<group>"; };
+		7373A6621A17D51400BF6012 /* EPStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPStack.h; sourceTree = "<group>"; };
+		7373A6631A17D51400BF6012 /* EPStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPStack.m; sourceTree = "<group>"; };
+		7373A6651A17DA4700BF6012 /* defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		73E32A641A17545D00EB4BEA /* IntellectT9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntellectT9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E32A681A17545D00EB4BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E32A691A17545D00EB4BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -158,6 +165,10 @@
 		7373A65E1A17BC7200BF6012 /* KeyboardManager */ = {
 			isa = PBXGroup;
 			children = (
+				7373A6621A17D51400BF6012 /* EPStack.h */,
+				7373A6631A17D51400BF6012 /* EPStack.m */,
+				7373A65F1A17C36D00BF6012 /* KeyboardManager.h */,
+				7373A6601A17C36D00BF6012 /* KeyboardManager.m */,
 			);
 			name = KeyboardManager;
 			sourceTree = "<group>";
@@ -239,6 +250,7 @@
 				73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */,
 				10763BB21A17A18600613BB3 /* Words.realm */,
 				73E6D2141A1769EA003BCF03 /* Supporting Files */,
+				7373A6651A17DA4700BF6012 /* defines.h */,
 			);
 			path = IntellectKeyboardT9;
 			sourceTree = "<group>";
@@ -462,7 +474,9 @@
 				10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */,
 				10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */,
 				10763BAC1A17912E00613BB3 /* BaseManager.m in Sources */,
+				7373A6611A17C36D00BF6012 /* KeyboardManager.m in Sources */,
 				73E6D2181A1769EA003BCF03 /* KeyboardViewController.m in Sources */,
+				7373A6641A17D51400BF6012 /* EPStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

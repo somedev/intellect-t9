@@ -7,24 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSInteger, PressedKeyType) {
-    PressedKeyType1 = 1,
-    PressedKeyType2 = 2,
-    PressedKeyType3 = 3,
-    PressedKeyType4 = 4,
-    PressedKeyType5 = 5,
-    PressedKeyType6 = 6,
-    PressedKeyType7 = 7,
-    PressedKeyType8 = 8,
-    PressedKeyType9 = 9,
-    PressedKeyType0 = 0,
-    PressedKeyTypeShift = 33,
-    PressedKeyTypeBackSpace = 34,
-    PressedKeyTypeSmiles = 35,
-    PressedKeyTypeEnter = 36,
-    PressedKeyTypeNextKeyboard = 888
-};
+#import "KeyboardManager.h"
 
 @interface ISKeyboardView : UIView
 
