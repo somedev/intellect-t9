@@ -50,6 +50,8 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     case PressedKeyTypeBackSpace:
         if (self.keyStack.count > 0) {
             [self.keyStack pop];
+            [textInputProxy deleteBackward];
+            [textInputProxy deleteBackward];
         }
         else {
             [textInputProxy deleteBackward];
@@ -86,7 +88,7 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     if (self.keyStack.count > 0) {
 
         __weak typeof(self) wself = self;
-        [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
+        [MANAGER wordsForKey:[wself keyStory] language:Eng type:QWERTY result:^(NSArray* results) {
             if(results.count > 0){
                 NSString* topWord = results.firstObject;
                 for (int i = 0; i < wself.keyStack.count - 1; i++) {
