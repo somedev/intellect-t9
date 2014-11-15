@@ -45,41 +45,29 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     return path;
 }
 
-- (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock
+- (void)wordsForKey:(NSString*)key language:(Language)language type:(TypeKeys)type result:(BaseManagerSearchResult)resultBlock
 {
     __weak BaseManager* wSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *result = [wSelf wordsForLanguage:_language type:_type forKey:key];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            resultBlock(result);
-        });
-    });
+    NSArray* result = [wSelf wordsForLanguage:language type:type forKey:key];
+    resultBlock(result);
 }
 
 - (NSArray*)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key
 {
-    RLMRealm *curentRealm;
+    RLMRealm* curentRealm;
     if ([NSThread isMainThread]) {
         curentRealm = _realm;
-    } else
-    {
-        curentRealm = [RLMRealm realmWithPath:self.path];
     }
-    Class lanClass;
-    switch (type) {
-    case 1:
-        lanClass = [RWordRus class];
-        break;
-    default:
-        lanClass = [RWordEng class];
-        break;
+    else {
+        curentRealm = [RLMRealm realmWithPath:self.path];
     }
 
     NSString* typeKey;
+    DLog(@"lang %i",language);
     switch (type) {
-    case 1:
+    case ABC: {
         typeKey = @"abckey";
-        break;
+    } break;
     default:
         typeKey = @"qwrtykey";
         break;
@@ -87,9 +75,21 @@ SINGLETON_IMPLEMENTATION(BaseManager)
 
     NSString* query = [NSString stringWithFormat:@"%@ = '%@'", typeKey, key];
 
-    RLMResults* results = [RWordRus objectsInRealm:curentRealm where:query];
-    results = [results sortedResultsUsingProperty:@"frequency" ascending:NO];
+    RLMResults* results;
+
+    switch (type) {
+    case Rus:
+        results = [RWordRus objectsInRealm:curentRealm where:query];
+        break;
+    default:
+        results = [RWordEng objectsInRealm:curentRealm where:query];
+        break;
+    }
     
+    DLog(@" type %@",[results objectClassName]);
+    
+    results = [results sortedResultsUsingProperty:@"frequency" ascending:NO];
+
     NSMutableArray* words = [NSMutableArray array];
 
     for (int i = 0; i < results.count; i++) {

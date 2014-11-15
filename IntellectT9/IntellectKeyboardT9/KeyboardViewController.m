@@ -25,9 +25,6 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 - (void)updateViewConstraints
 {
     [super updateViewConstraints];
-    
-     //[MANAGER wordsForLanguage:Rus type:QWERTY forKey:@"111"];
-    
 }
 
 - (void)viewDidLoad
@@ -35,11 +32,8 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
     [super viewDidLoad];
 
     [self loadKeyboardNib];
-    
-    MANAGER.language = Eng;
-    MANAGER.type = QWERTY;
-    
-    [MANAGER wordsForKey:@"444" result:^(NSArray * results) {
+
+    [MANAGER wordsForKey:@"111" language:Eng type:QWERTY result:^(NSArray* results) {
         NSLog(@"%@",results);
     }];
 }
@@ -48,7 +42,6 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 {
     [super viewWillAppear:animated];
     [self addHeightConstraint];
-    
 }
 
 #pragma mark - Rotation
