@@ -30,7 +30,7 @@ SINGLETON_IMPLEMENTATION(BaseManager)
         NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Words.realm"];
         NSError *error;
         _realm = [RLMRealm realmWithPath:path readOnly:YES error:&error];
-        
+        NSLog(@"Realm %@",_realm);
     }
     
     return self;
@@ -57,10 +57,14 @@ SINGLETON_IMPLEMENTATION(BaseManager)
             typeKey = @"qwrtykey";
             break;
     }
+    NSLog(@"Realm %@",_realm);
     
-    RLMResults *words = [lanClass objectsWhere:@"%@ = '%@'",typeKey,key];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"qwrtykey = %@",
+                         @"key"];
+    RLMResults *results = [lanClass objectsWithPredicate:pred];
+   // RLMResults *words = [lanClass objectsWhere:@"%@ = '%@'",typeKey,key];
     
-    return nil;
+    return results;
 }
 
 @end
