@@ -9,6 +9,7 @@
 #import "KeyboardViewController.h"
 #import "KeyboardManager.h"
 #import "ISKeyboardView.h"
+#import "BaseManager.h"
 
 #pragma mark - Constants
 static CGFloat const kKeyboardHeightPortrait = 260.0;
@@ -24,6 +25,9 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 - (void)updateViewConstraints
 {
     [super updateViewConstraints];
+    
+     //[MANAGER wordsForLanguage:Rus type:QWERTY forKey:@"111"];
+    
 }
 
 - (void)viewDidLoad
@@ -31,12 +35,20 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
     [super viewDidLoad];
 
     [self loadKeyboardNib];
+    
+    MANAGER.language = Eng;
+    MANAGER.type = QWERTY;
+    
+    [MANAGER wordsForKey:@"444" result:^(NSArray * results) {
+        NSLog(@"%@",results);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self addHeightConstraint];
+    
 }
 
 #pragma mark - Rotation

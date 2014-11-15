@@ -13,7 +13,7 @@
 @property NSString *word;
 @property NSString *qwrtykey;
 @property NSString *abckey;
-@property NSUInteger frequency;
+@property NSInteger frequency;
 
 @end
 
