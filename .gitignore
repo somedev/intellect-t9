@@ -27,3 +27,5 @@ bin/
 .idea
 *.swp
 *~.nib
+/dictionary/ru/*.txt
+/dictionary/en/*.txt
