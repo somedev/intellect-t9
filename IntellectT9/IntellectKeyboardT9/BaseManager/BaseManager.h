@@ -6,32 +6,23 @@
 //  Copyright (c) 2014 Intellectsoft. All rights reserved.
 //
 
-#define SINGLETON_INTERFACE +(instancetype)sharedInstance;
-#define SINGLETON_IMPLEMENTATION(_CLASS_NAME_)                                         \
-+(instancetype)sharedInstance                                                      \
-{                                                                                  \
-    __strong static _CLASS_NAME_ *sharedInstance = nil;                            \
-    static dispatch_once_t onceToken;                                              \
-    dispatch_once(&onceToken, ^{ sharedInstance = [[_CLASS_NAME_ alloc] init]; }); \
-    return sharedInstance;                                                         \
-}
-
-#define MANAGER [BaseManager sharedInstance]
-
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
+#import "defines.h"
+
 
 typedef void (^BaseManagerSearchResult)(NSArray *);
 
-typedef enum{
+
+typedef enum {
     Eng = 0,
     Rus
-}Language;
+} Language;
 
-typedef enum{
+typedef enum {
     QWERTY = 0,
     ABC
-}TypeKeys;
+} TypeKeys;
 @interface BaseManager : NSObject
 
 @property (nonatomic,assign) Language language;
@@ -41,5 +32,6 @@ SINGLETON_INTERFACE
 
 - (NSArray *)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString *)key;
 - (void)wordsForKey:(NSString *)key result:(BaseManagerSearchResult)resultBlock;
+
 
 @end

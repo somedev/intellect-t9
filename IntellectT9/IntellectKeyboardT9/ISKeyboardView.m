@@ -9,18 +9,49 @@
 #import "ISKeyboardView.h"
 
 static CGFloat const kPredictViewHeight = 44.0;
+static NSTimeInterval const kLongPressTimeInterval = 1.0;
 
 @interface ISKeyboardView ()
+
+@property (nonatomic, assign) NSInteger downPressedKeyTag;
+@property (nonatomic, strong) NSTimer* keyTimer;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* predictViewHeightConstraint;
-- (IBAction)keyPressed:(UIButton*)sender;
+
+- (IBAction)keyUp:(UIButton*)sender;
+
+- (IBAction)keyDown:(UIButton*)sender;
+
 @end
 
 @implementation ISKeyboardView
 
-- (IBAction)keyPressed:(UIButton*)sender
+- (IBAction)keyDown:(UIButton*)sender
 {
+    self.downPressedKeyTag = sender.tag;
+    [self.keyTimer invalidate];
+    self.keyTimer = [NSTimer scheduledTimerWithTimeInterval:kLongPressTimeInterval
+                                                     target:self
+                                                   selector:@selector(timerFired)
+                                                   userInfo:nil
+                                                    repeats:NO];
+}
+
+- (IBAction)keyUp:(UIButton*)sender
+{
+    [self.keyTimer invalidate];
+
+    if (self.downPressedKeyTag == NSIntegerMax && sender.tag == PressedKeyTypeSpase) {
+        return;
+    }
+    
+    if (self.downPressedKeyTag == sender.tag) {
+        self.downPressedKeyTag = NSIntegerMax;
+    }
+
+    NSInteger tag = sender.tag;
     if (self.keyPressedCallback) {
-        self.keyPressedCallback(sender.tag);
+        self.keyPressedCallback(tag);
     }
 }
 
@@ -32,6 +63,17 @@ static CGFloat const kPredictViewHeight = 44.0;
                          self.predictViewHeightConstraint.constant = hidden ? 0 : kPredictViewHeight;
                          [self layoutIfNeeded];
                      }];
+}
+
+- (void)timerFired
+{
+    if (self.downPressedKeyTag == PressedKeyTypeSpase) {
+        self.downPressedKeyTag = NSIntegerMax;
+        if (self.keyPressedCallback) {
+            self.keyPressedCallback(PressedKeyTypeSpaseLong);
+        }
+    }
+    [self.keyTimer invalidate];
 }
 
 @end
