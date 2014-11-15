@@ -48,7 +48,13 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 
         break;
     case PressedKeyTypeBackSpace:
-        [self.keyStack pop];
+        if (self.keyStack.count > 0) {
+            [self.keyStack pop];
+        }
+        else {
+            [textInputProxy deleteBackward];
+        }
+
         break;
 
     case PressedKeyTypeSmiles:
@@ -78,19 +84,26 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 - (void)updateKeysForTextInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
     if (self.keyStack.count > 0) {
-        DLog(@"%@", [self keyStory]);
 
-        NSArray* results = @[ [self keyStory] ];
-
-        NSString* topWord = results.firstObject;
-        for (int i = 0; i < self.keyStack.count - 1; i++) {
-            [textInputProxy deleteBackward];
-        }
-        [textInputProxy insertText:topWord];
-
-        if (self.predictionUpdateCallback) {
-            self.predictionUpdateCallback(results);
-        }
+        __weak typeof(self) wself = self;
+        [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
+            if(results.count > 0){
+                NSString* topWord = results.firstObject;
+                for (int i = 0; i < wself.keyStack.count - 1; i++) {
+                    [textInputProxy deleteBackward];
+                }
+                [textInputProxy insertText:topWord];
+                
+                if (wself.predictionUpdateCallback) {
+                    wself.predictionUpdateCallback(results);
+                }
+            }
+            else{
+                [wself.keyStack pop];
+            }
+            
+            DLog(@"%@", [self keyStory]);
+        }];
     }
 }
 
