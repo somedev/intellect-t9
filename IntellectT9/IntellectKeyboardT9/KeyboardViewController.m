@@ -1,3 +1,4 @@
+
 //
 //  KeyboardViewController.m
 //  IntellectKeyboardT9
@@ -36,7 +37,7 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
     [MANAGER wordsStartWithKey:@"111" result:^(NSArray* results) {
         NSLog(@"%@",results);
     }];
-    
+
     [MANAGER wordsForKey:@"111" result:^(NSArray* results) {
         NSLog(@"%@",results);
     }];

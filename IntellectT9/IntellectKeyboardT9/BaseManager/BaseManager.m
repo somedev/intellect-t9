@@ -10,6 +10,11 @@
 #import "RWordEng.h"
 #import "RWordRus.h"
 
+#define EQUAL @"="
+#define BEGINSWITH @"BEGINSWITH"
+
+#define LIMIT 20
+
 @interface BaseManager ()
 
 @property (nonatomic, retain) RLMRealm* realm;
@@ -69,7 +74,11 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     });
 }
 
-- (void)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key command:(NSString*)command result:(BaseManagerSearchResult)resultBlock
+- (void)wordsForLanguage:(KeyboardLang)language
+                    type:(KeyboardType)type
+                  forKey:(NSString*)key
+                 command:(NSString*)command
+                  result:(BaseManagerSearchResult)resultBlock
 {
     RLMRealm* curentRealm;
     if ([NSThread isMainThread]) {
@@ -80,9 +89,9 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     }
 
     NSString* typeKey;
-    DLog(@"lang %i", language);
+    DLog(@"lang %li", language);
     switch (type) {
-    case ABC: {
+    case KeyboardTypeABC: {
         typeKey = @"abckey";
     } break;
     default:
@@ -91,16 +100,15 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     }
 
     NSString* query = [NSString stringWithFormat:@"%@ %@ '%@'", typeKey, command, key];
-    
-    if ([command isEqualToString:BEGINSWITH])
-    {
-        query = [NSString stringWithFormat:@"%@ AND %@ != '%@'",query, typeKey, key];
+
+    if ([command isEqualToString:BEGINSWITH]) {
+        query = [NSString stringWithFormat:@"%@ AND %@ != '%@'", query, typeKey, key];
     }
 
     RLMResults* results;
 
     switch (language) {
-    case Rus:
+    case KeyboardLangRus:
         results = [RWordRus objectsInRealm:curentRealm where:query];
         break;
     default:

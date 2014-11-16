@@ -8,33 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
-#import "defines.h"
 
 typedef void (^BaseManagerSearchResult)(NSArray* words);
 
-typedef enum {
-    Eng = 0,
-    Rus = 1
-} Language;
-
-typedef enum {
-    QWERTY = 0,
-    ABC = 1
-} TypeKeys;
-
-#define EQUAL @"="
-#define BEGINSWITH @"BEGINSWITH"
-
-#define LIMIT 20
-
 @interface BaseManager : NSObject
 
-@property (nonatomic, assign) Language language;
-@property (nonatomic, assign) TypeKeys type;
+@property (nonatomic, assign) KeyboardLang language;
+@property (nonatomic, assign) KeyboardType type;
 
 SINGLETON_INTERFACE
 
-- (void)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key command:(NSString*)command result:(BaseManagerSearchResult)resultBlock;
+- (void)wordsForLanguage:(KeyboardLang)language
+                    type:(KeyboardType)type
+                  forKey:(NSString*)key
+                 command:(NSString*)command
+                  result:(BaseManagerSearchResult)resultBlock;
 - (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 - (void)wordsStartWithKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 

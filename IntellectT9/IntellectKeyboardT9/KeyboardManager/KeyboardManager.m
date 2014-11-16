@@ -10,14 +10,29 @@
 #import <UIKit/UIKit.h>
 #import "EPStack.h"
 #import "BaseManager.h"
+#import "KeyboardModel.h"
 
 @interface KeyboardManager ()
 @property (nonatomic, strong) EPStack* keyStack;
+@property (nonatomic, assign) KeyboardLang currentLanguage;
+@property (nonatomic, assign) KeyboardType currentType;
+@property (nonatomic, strong) KeyboardModel* keyBoardModel;
 @end
 
 @implementation KeyboardManager
 
 SINGLETON_IMPLEMENTATION(KeyboardManager)
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.currentType = KeyboardTypeQWERTY;
+        self.currentLanguage = KeyboardTypeABC;
+        self.keyBoardModel = [KeyboardModel new];
+    }
+    return self;
+}
 
 #pragma mark - properties
 - (EPStack*)keyStack
@@ -105,7 +120,7 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
             }
             
             DLog(@"%@", [self keyStory]);
-        }];
+                      }];
     }
 }
 

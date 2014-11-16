@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  IntellectT9
+//
+//  Created by Eduard Panasiuk on 11/16/14.
+//  Copyright (c) 2014 Intellectsoft. All rights reserved.
+//
+
+#ifndef IntellectT9_PrefixHeader_pch
+#define IntellectT9_PrefixHeader_pch
+
+#import <Foundation/Foundation.h>
+
+#import "defines.h"
+#import "types.h"
+
+#endif
