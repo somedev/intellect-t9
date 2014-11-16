@@ -72,11 +72,12 @@ end
 
 def get_word_list(language)
   words_list = Hash.new
-  Dir["#{language}/*.txt"].each do |file_name|
+  Dir["#{language}/*.[txt|sub|srt]*"].each do |file_name|
     f = open file_name
     f.readlines.each do |line|
       add_new_words(line, words_list)
     end
+    p "#{file_name} parsed."
   end
   words_list
 end

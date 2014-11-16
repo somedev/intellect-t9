@@ -28,4 +28,9 @@ bin/
 *.swp
 *~.nib
 /dictionary/ru/*.txt
+/dictionary/ru/*.sub
+/dictionary/ru/*.srt
+
 /dictionary/en/*.txt
+/dictionary/en/*.sub
+/dictionary/en/*.srt
