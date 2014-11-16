@@ -707,8 +707,8 @@
 			baseConfigurationReference = 96FDF4D8EC71B9E6C3AAD7D7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = IntellectKeyboardT9/IntellectKeyboardT9.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Intellectsoft LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Intellectsoft LLC";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/IntellectKeyboardT9/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -726,7 +726,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a2931b88-90d3-4d22-8db4-19817a692d02";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
