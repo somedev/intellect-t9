@@ -10,6 +10,7 @@
 #define IntellectT9_PrefixHeader_pch
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "defines.h"
 #import "types.h"

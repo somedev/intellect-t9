@@ -28,8 +28,10 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     self = [super init];
     if (self) {
         self.currentType = KeyboardTypeQWERTY;
-        self.currentLanguage = KeyboardTypeABC;
+        self.currentLanguage = KeyboardLangEng;
         self.keyBoardModel = [KeyboardModel new];
+        MANAGER.language = self.currentLanguage;
+        MANAGER.type = self.currentType;
     }
     return self;
 }
@@ -44,6 +46,24 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 }
 
 #pragma mark - processing
+- (void)processSelectionChangeFrorTextInputProxy:(id<UITextDocumentProxy>)textInputProxy
+{
+    NSString* text = textInputProxy.documentContextBeforeInput;
+    NSArray* keyNumbers = [self.keyBoardModel keyNumbersFromText:text
+                                                    keyboardType:self.currentType
+                                                        language:self.currentLanguage];
+
+    [self.keyStack clear];
+    [self.keyStack pushArray:keyNumbers];
+
+    __weak typeof(self) wself = self;
+    [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
+        if (wself.predictionUpdateCallback) {
+            wself.predictionUpdateCallback(results, text);
+        }
+    }];
+}
+
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType
                            textInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
@@ -70,6 +90,8 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         }
         else {
             [textInputProxy deleteBackward];
+            [self processSelectionChangeFrorTextInputProxy:textInputProxy];
+            return;
         }
 
         break;
@@ -112,15 +134,35 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
                 [textInputProxy insertText:topWord];
                 
                 if (wself.predictionUpdateCallback) {
-                    wself.predictionUpdateCallback(results);
+                    wself.predictionUpdateCallback(results, topWord);
                 }
             }
             else{
-                [wself.keyStack pop];
+                [MANAGER wordsStartWithKey:[wself keyStory]
+                                    result:^(NSArray *words) {
+                                        if(words.count > 0){
+                                            NSString* topWord = words.firstObject;
+                                            for (int i = 0; i < wself.keyStack.count - 1; i++) {
+                                                [textInputProxy deleteBackward];
+                                            }
+                                            
+                                            NSRange partRange = NSMakeRange(0, wself.keyStack.count);
+                                            topWord = [topWord substringWithRange:partRange];
+                                            
+                                            [textInputProxy insertText:topWord];
+
+                                        }
+                                        else{
+                                            [wself.keyStack pop];
+                                        }
+                                        
+                                        DLog(@"%@", [self keyStory]);
+                                    }];
+                
             }
             
             DLog(@"%@", [self keyStory]);
-                      }];
+        }];
     }
 }
 

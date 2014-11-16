@@ -181,6 +181,14 @@
         return nil;
     }
 
+    //find spaces in text
+    NSArray* stringsSeparatedBySpaces = [trimmedString componentsSeparatedByString:@" "];
+    trimmedString = stringsSeparatedBySpaces.lastObject;
+
+    if (trimmedString.length <= 0) {
+        return nil;
+    }
+
     NSMutableArray* keyNumbers = [NSMutableArray array];
     NSDictionary* keys = [self keyDictionaryWithKeyboardType:keyboardType language:language];
     for (int i = 0; i < trimmedString.length; i++) {
