@@ -214,13 +214,15 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <button opaque="NO" tag="37" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEf-FN-Kku">
-                            <rect key="frame" x="82" y="174" width="124" height="39"/>
+                        <button opaque="NO" tag="37" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEf-FN-Kku">
+                            <rect key="frame" x="84" y="174" width="124" height="39"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="gs8-q3-Ekp"/>
                                 <constraint firstAttribute="height" constant="39" id="mWL-Ja-szO"/>
                             </constraints>
-                            <state key="normal" title="spase" backgroundImage="white_button">
+                            <inset key="contentEdgeInsets" minX="26" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title=". , ! ? -" backgroundImage="white_button">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
