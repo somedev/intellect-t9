@@ -45,19 +45,31 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     return path;
 }
 
-- (void)wordsForKey:(NSString*)key language:(Language)language type:(TypeKeys)type result:(BaseManagerSearchResult)resultBlock
+- (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock
 {
     __weak BaseManager* wSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *result = [wSelf wordsForLanguage:language type:type forKey:key];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            resultBlock(result);
-        });
+        [wSelf wordsForLanguage:_language type:_type forKey:key command:EQUAL result:^(NSArray *equal) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                resultBlock(equal);
+            });
+        }];
     });
-
 }
 
-- (NSArray*)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key
+- (void)wordsStartWithKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock
+{
+    __weak BaseManager* wSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [wSelf wordsForLanguage:_language type:_type forKey:key command:BEGINSWITH result:^(NSArray *equal) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                resultBlock(equal);
+            });
+        }];
+    });
+}
+
+- (void)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key command:(NSString*)command result:(BaseManagerSearchResult)resultBlock
 {
     RLMRealm* curentRealm;
     if ([NSThread isMainThread]) {
@@ -68,7 +80,7 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     }
 
     NSString* typeKey;
-    DLog(@"lang %i",language);
+    DLog(@"lang %i", language);
     switch (type) {
     case ABC: {
         typeKey = @"abckey";
@@ -78,7 +90,12 @@ SINGLETON_IMPLEMENTATION(BaseManager)
         break;
     }
 
-    NSString* query = [NSString stringWithFormat:@"%@ = '%@'", typeKey, key];
+    NSString* query = [NSString stringWithFormat:@"%@ %@ '%@'", typeKey, command, key];
+    
+    if ([command isEqualToString:BEGINSWITH])
+    {
+        query = [NSString stringWithFormat:@"%@ AND %@ != '%@'",query, typeKey, key];
+    }
 
     RLMResults* results;
 
@@ -90,19 +107,20 @@ SINGLETON_IMPLEMENTATION(BaseManager)
         results = [RWordEng objectsInRealm:curentRealm where:query];
         break;
     }
-    
-    DLog(@" type %@ qr %@",[results objectClassName],typeKey);
-    
+
+    DLog(@" type %@ qr %@", [results objectClassName], typeKey);
+
     results = [results sortedResultsUsingProperty:@"frequency" ascending:NO];
 
-    NSMutableArray* words = [NSMutableArray array];
+    NSMutableArray* equal = [NSMutableArray array];
 
-    for (int i = 0; i < results.count; i++) {
+    for (int i = 0; i < MIN(results.count, LIMIT); i++) {
         RWord* word = [results objectAtIndex:i];
-        [words addObject:word.word];
+
+        [equal addObject:word.word];
     }
 
-    return words;
+    resultBlock(equal);
 }
 
 @end

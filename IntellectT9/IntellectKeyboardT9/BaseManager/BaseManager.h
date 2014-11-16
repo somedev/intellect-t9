@@ -10,7 +10,7 @@
 #import <Realm/Realm.h>
 #import "defines.h"
 
-typedef void (^BaseManagerSearchResult)(NSArray*);
+typedef void (^BaseManagerSearchResult)(NSArray* words);
 
 typedef enum {
     Eng = 0,
@@ -21,6 +21,12 @@ typedef enum {
     QWERTY = 0,
     ABC = 1
 } TypeKeys;
+
+#define EQUAL @"="
+#define BEGINSWITH @"BEGINSWITH"
+
+#define LIMIT 20
+
 @interface BaseManager : NSObject
 
 @property (nonatomic, assign) Language language;
@@ -28,7 +34,8 @@ typedef enum {
 
 SINGLETON_INTERFACE
 
-- (NSArray*)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key;
-- (void)wordsForKey:(NSString*)key language:(Language)language type:(TypeKeys)type result:(BaseManagerSearchResult)resultBlock;
+- (void)wordsForLanguage:(Language)language type:(TypeKeys)type forKey:(NSString*)key command:(NSString*)command result:(BaseManagerSearchResult)resultBlock;
+- (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
+- (void)wordsStartWithKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 
 @end

@@ -33,7 +33,11 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 
     [self loadKeyboardNib];
 
-    [MANAGER wordsForKey:@"111" language:Eng type:ABC result:^(NSArray* results) {
+    [MANAGER wordsStartWithKey:@"111" result:^(NSArray* results) {
+        NSLog(@"%@",results);
+    }];
+    
+    [MANAGER wordsForKey:@"111" result:^(NSArray* results) {
         NSLog(@"%@",results);
     }];
 }
