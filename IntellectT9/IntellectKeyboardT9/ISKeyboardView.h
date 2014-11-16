@@ -15,4 +15,6 @@
 
 - (void)setPredictViewHidden:(BOOL)hidden withAnimationDuration:(CGFloat)duration;
 
+- (void)updateConstraintsInLandscape:(BOOL)landscape duration:(CGFloat)duration;
+
 @end

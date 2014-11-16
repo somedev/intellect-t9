@@ -19,6 +19,8 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 @interface KeyboardViewController ()
 @property (nonatomic, strong) NSLayoutConstraint* heightConstraint;
 @property (nonatomic, strong) ISKeyboardView* mainKeyboardView;
+
+
 @end
 
 @implementation KeyboardViewController
@@ -56,6 +58,7 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
                      }];
 
     [self.mainKeyboardView setPredictViewHidden:!portrait withAnimationDuration:duration];
+    [self.mainKeyboardView updateConstraintsInLandscape:!portrait duration:duration];
 }
 
 #pragma mark - UITextInputDelegate

@@ -11,10 +11,28 @@
 static CGFloat const kPredictViewHeight = 44.0;
 static NSTimeInterval const kLongPressTimeInterval = 1.0;
 
+static CGFloat const kTopLanscapeValue = 1.0;
+static CGFloat const kTopPortraitValue = 12;
+
+static CGFloat const kLanscapeValue = 1.0;
+static CGFloat const kPortraitValue = 15;
+
+static CGFloat const kLanscapeLeftValue = 67.0;
+static CGFloat const kPortraitLeftValue = 3.0;
+
+static CGFloat const kLanscapeEnterBottomValue = 3.0;
+static CGFloat const kPortraitEnterBottomValue = 57.0;
+
 @interface ISKeyboardView ()
 
 @property (nonatomic, assign) NSInteger downPressedKeyTag;
 @property (nonatomic, strong) NSTimer* keyTimer;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* topConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* middleConstaraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* lowerMiddleConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* leftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* enterBottomConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* predictViewHeightConstraint;
 
@@ -44,7 +62,7 @@ static NSTimeInterval const kLongPressTimeInterval = 1.0;
     if (self.downPressedKeyTag == NSIntegerMax && sender.tag == PressedKeyTypeSpase) {
         return;
     }
-    
+
     if (self.downPressedKeyTag == sender.tag) {
         self.downPressedKeyTag = NSIntegerMax;
     }
@@ -62,6 +80,19 @@ static NSTimeInterval const kLongPressTimeInterval = 1.0;
                      animations:^{
                          self.predictViewHeightConstraint.constant = hidden ? 0 : kPredictViewHeight;
                          [self layoutIfNeeded];
+                     }];
+}
+
+- (void)updateConstraintsInLandscape:(BOOL)landscape duration:(CGFloat)duration
+{
+    [self layoutIfNeeded];
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         _topConstraint.constant = landscape ? kTopLanscapeValue : kTopPortraitValue;
+                         _middleConstaraint.constant = landscape ? kLanscapeValue : kPortraitValue;
+                         _lowerMiddleConstraint.constant = landscape ? kLanscapeValue : kPortraitValue;
+                         _leftConstraint.constant = landscape ? kLanscapeLeftValue : kPortraitLeftValue;
+                         _enterBottomConstraint.constant = landscape ? kLanscapeEnterBottomValue : kPortraitEnterBottomValue;
                      }];
 }
 

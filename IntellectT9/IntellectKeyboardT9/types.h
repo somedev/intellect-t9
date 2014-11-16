@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger, PressedKeyType) {
     PressedKeyTypeEnter = 36,
     PressedKeyTypeSpaseLong = 137,
     PressedKeyTypeSpase = 37,
+    PressedKeyTypeSwitchNumbers = 38,
+    PressedKeyTypeChangeLanguage = 39,
     PressedKeyTypeNextKeyboard = 888
 };
 

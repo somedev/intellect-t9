@@ -12,6 +12,7 @@
 		10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BA91A17912E00613BB3 /* RWordEng.m */; };
 		10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BAB1A17912E00613BB3 /* RWordRus.m */; };
 		10763BB31A17A18600613BB3 /* Words.realm in Resources */ = {isa = PBXBuildFile; fileRef = 10763BB21A17A18600613BB3 /* Words.realm */; };
+		1079DDDE1A18A4DB00D2E5D6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */; };
 		7373A65A1A17AE1D00BF6012 /* ISKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6581A17AE1D00BF6012 /* ISKeyboardView.m */; };
 		7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */; };
 		7373A6611A17C36D00BF6012 /* KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6601A17C36D00BF6012 /* KeyboardManager.m */; };
@@ -70,6 +71,7 @@
 		10763BAA1A17912E00613BB3 /* RWordRus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWordRus.h; sourceTree = "<group>"; };
 		10763BAB1A17912E00613BB3 /* RWordRus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWordRus.m; sourceTree = "<group>"; };
 		10763BB21A17A18600613BB3 /* Words.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Words.realm; sourceTree = "<group>"; };
+		1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		43CC74D4C628FACBBBEE591B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E59939AA7BF4D9DBA9930BF /* libPods-IntellectKeyboardT9.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntellectKeyboardT9.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7373A6571A17AE1D00BF6012 /* ISKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISKeyboardView.h; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				73E6D2161A1769EA003BCF03 /* KeyboardViewController.h */,
 				73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */,
 				10763BB21A17A18600613BB3 /* Words.realm */,
+				1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */,
 				73E6D2141A1769EA003BCF03 /* Supporting Files */,
 				7373A6651A17DA4700BF6012 /* defines.h */,
 				73A9FEA11A189A5A0058B79A /* PrefixHeader.pch */,
@@ -415,6 +418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1079DDDE1A18A4DB00D2E5D6 /* images.xcassets in Resources */,
 				10763BB31A17A18600613BB3 /* Words.realm in Resources */,
 				7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */,
 			);
