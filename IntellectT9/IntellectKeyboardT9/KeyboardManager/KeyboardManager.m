@@ -58,9 +58,26 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 
     __weak typeof(self) wself = self;
     [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
-        if (wself.predictionUpdateCallback) {
-            wself.predictionUpdateCallback(results, text);
+        if(results.count > 0){
+            if (wself.predictionUpdateCallback) {
+                wself.predictionUpdateCallback(results, text);
+            }
         }
+        else{
+            [MANAGER wordsStartWithKey:[wself keyStory]
+                                result:^(NSArray *words) {
+                                    if(words.count > 0){
+                                        if (wself.predictionUpdateCallback) {
+                                            wself.predictionUpdateCallback(words, text);
+                                        }
+                                    }
+                                    else{
+                                        //TODO: show keys
+                                    }
+                                }];
+            
+        }
+
     }];
 }
 
@@ -150,7 +167,6 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
                                             topWord = [topWord substringWithRange:partRange];
                                             
                                             [textInputProxy insertText:topWord];
-
                                         }
                                         else{
                                             [wself.keyStack pop];
