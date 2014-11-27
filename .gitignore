@@ -34,3 +34,4 @@ bin/
 /dictionary/en/*.txt
 /dictionary/en/*.sub
 /dictionary/en/*.srt
+work/

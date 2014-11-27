@@ -1,4 +1,3 @@
-
 require 'csv'
 
 class String
@@ -18,8 +17,32 @@ class String
     end
   end
 
+  def capitalize_cyrillic
+    if self.match(/\p{Cyrillic}/)
+      str = String.new self
+      upper_case = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ'
+      lower_case = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
+      str[0] = upper_case[lower_case.index(self[0])]
+      str
+    end
+  end
+
   def clean
     self.encode!('UTF-8', :invalid => :replace, :replace => ' ').gsub('-', ' ').gsub(/[^A-Za-zА-Яа-я]/, ' ')
+  end
+
+  def get_names
+    line = self
+    regexp = /[a-zа-я]+ (?<name>[А-ЯA-Z][а-яa-z]+)|^ (?<name>[А-ЯA-Z][а-яa-z]+)/
+    names_list = []
+    until regexp.match(line).nil? do
+      name = regexp.match($')
+      unless names_list.include?(name)
+        names_list << name[:name] unless name.nil?
+      end
+      line = $'
+    end
+    names_list
   end
 
 end
@@ -33,6 +56,7 @@ def get_hash(word, set=:qwerty)
       translate_hash = {a: 1, b: 1, c: 1, d: 2, e: 2, f: 2, g: 3, h: 3, i: 3, j: 4, k: 4, l: 4, m: 5, n: 5, o: 5, p: 6, q: 6, r: 6, s: 6, t: 7, u: 7, v: 7, w: 8, x: 8, y: 8, z: 8,
                         а: 1, б: 1, в: 1, г: 1, д: 2, е: 2, ё: 2, ж: 2, з: 2, и: 3, й: 3, к: 3, л: 3, м: 4, н: 4, о: 4, п: 4, р: 5, с: 5, т: 5, у: 5, ф: 6, х: 6, ц: 6, ч: 6, ш: 7, щ: 7, ъ: 7, ы: 7, ь: 8, э: 8, ю: 8, я: 8}
     else
+      translate_hash= {}
   end
 
   qwerty_hash = ''
@@ -42,20 +66,39 @@ def get_hash(word, set=:qwerty)
   qwerty_hash
 end
 
-def add_new_words(line, words_list)
+def add_new_words(line, words_list, language)
   line_words = line.clean.downcase.downcase_cyrillic.split(' ')
+  names_list = line.get_names
   line_words.each do |word|
     if words_list.include?(word)
       words_list[word][:frequency] = words_list[word][:frequency] + 1
+      case language
+        when :ru
+          words_list[word][:name_frequency] = words_list[word][:name_frequency] + 1 if names_list.include?(word.capitalize_cyrillic)
+        else
+          words_list[word][:name_frequency] = words_list[word][:name_frequency] + 1 if names_list.include?(word.capitalize)
+      end
       next
     end
-    words_list[word] = {frequency: 1, abc_hash: get_hash(word, :abc), qwerty_hash: get_hash(word, :qwerty)}
+    begin
+      case language
+        when :ru
+          words_list[word] = {frequency: 1, abc_hash: get_hash(word, :abc), qwerty_hash: get_hash(word, :qwerty),
+                              name_frequency: names_list.include?(word.capitalize_cyrillic) ? 1 : 0}
+        else
+          words_list[word] = {frequency: 1, abc_hash: get_hash(word, :abc), qwerty_hash: get_hash(word, :qwerty),
+                              name_frequency: names_list.include?(word.capitalize) ? 1 : 0}
+      end
+
+      # rescue => e
+      #   p ['-', word, '-']
+    end
   end
 end
 
 def save_csv_file(file_name, words_list, language=:ru)
   CSV.open(file_name, 'w') do |csv|
-    csv << ['Word', 'Frequency', 'Abc Hash', 'Qwerty Hash']
+    csv << ['Word', 'Frequency', 'Abc Hash', 'Qwerty Hash', 'As name']
     words_list.sort.each do |word_hash|
       case language
         when :en
@@ -65,25 +108,25 @@ def save_csv_file(file_name, words_list, language=:ru)
         else
           break
       end
-      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash], word_hash[1][:qwerty_hash]] if word_hash[1][:frequency] > 1
+      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash], word_hash[1][:qwerty_hash], word_hash[1][:name_frequency]] if word_hash[1][:frequency] > 1
     end
   end
 end
 
 def get_word_list(language)
   words_list = Hash.new
-  Dir["#{language}/*.[txt|sub|srt]*"].each do |file_name|
+  Dir["work/#{language}/*.[txt|sub|srt]*"].each do |file_name|
     f = open file_name
     f.readlines.each do |line|
-      add_new_words(line, words_list)
+      add_new_words(line, words_list, language)
     end
     p "#{file_name} parsed."
   end
   words_list
 end
 
-# language = :ru
-# save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
-
-language = :en
+language = :ru
 save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
+
+# language = :en
+# save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
