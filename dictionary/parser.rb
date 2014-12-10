@@ -19,11 +19,15 @@ class String
 
   def capitalize_cyrillic
     if self.match(/\p{Cyrillic}/)
-      str = String.new self
-      upper_case = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ'
-      lower_case = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
-      str[0] = upper_case[lower_case.index(self[0])]
-      str
+      begin
+        str = String.new self
+        upper_case = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ'
+        lower_case = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
+        str[0] = upper_case[lower_case.index(self[0])]
+        str
+      rescue => e
+        p str
+      end
     end
   end
 
@@ -32,14 +36,14 @@ class String
   end
 
   def get_names
+    # p self
     line = self
-    regexp = /[a-zа-я]+ (?<name>[А-ЯA-Z][а-яa-z]+)|^ (?<name>[А-ЯA-Z][а-яa-z]+)/
+    regexp = /[^\.\ \!\?]+ (?<name>[А-ЯA-Z][а-яa-z]+)|^ ?(?<name>[А-ЯA-Z][а-яa-z]+)/
+    # regexp = /[a-zа-я\,]+ (?<name>[А-ЯA-Z][а-яa-z]+)|^ (?<name>[А-ЯA-Z][а-яa-z]+)/
     names_list = []
     until regexp.match(line).nil? do
-      name = regexp.match($')
-      unless names_list.include?(name)
-        names_list << name[:name] unless name.nil?
-      end
+      names_list << $~[:name]
+      # p $~
       line = $'
     end
     names_list
@@ -70,8 +74,11 @@ def add_new_words(line, words_list, language)
   line_words = line.clean.downcase.downcase_cyrillic.split(' ')
   names_list = line.get_names
   line_words.each do |word|
+    # p [names_list, word, line] if word == 'айзек' && !names_list.include?('Айзек')
     if words_list.include?(word)
       words_list[word][:frequency] = words_list[word][:frequency] + 1
+
+      next if names_list.empty?
       case language
         when :ru
           words_list[word][:name_frequency] = words_list[word][:name_frequency] + 1 if names_list.include?(word.capitalize_cyrillic)
@@ -89,9 +96,6 @@ def add_new_words(line, words_list, language)
           words_list[word] = {frequency: 1, abc_hash: get_hash(word, :abc), qwerty_hash: get_hash(word, :qwerty),
                               name_frequency: names_list.include?(word.capitalize) ? 1 : 0}
       end
-
-      # rescue => e
-      #   p ['-', word, '-']
     end
   end
 end
@@ -108,14 +112,16 @@ def save_csv_file(file_name, words_list, language=:ru)
         else
           break
       end
-      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash], word_hash[1][:qwerty_hash], word_hash[1][:name_frequency]] if word_hash[1][:frequency] > 1
+      csv << [word_hash[0], word_hash[1][:frequency], word_hash[1][:abc_hash],
+              word_hash[1][:qwerty_hash], word_hash[1][:name_frequency],
+              word_hash[1][:name_frequency]/word_hash[1][:frequency].to_f] if word_hash[1][:frequency] > 1
     end
   end
 end
 
 def get_word_list(language)
   words_list = Hash.new
-  Dir["work/#{language}/*.[txt|sub|srt]*"].each do |file_name|
+  Dir["#{language}/*.[txt|sub|srt]*"].each do |file_name|
     f = open file_name
     f.readlines.each do |line|
       add_new_words(line, words_list, language)
@@ -128,5 +134,8 @@ end
 language = :ru
 save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
 
-# language = :en
-# save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
+# p "— Ты меня удивил, Айзек. Так выражаться! Но ведь ты не Айзек, правда? Такой же Айзек, как и те двое-геологи. Этой ночью, Айзек, ты присоединишься к своим друзьям. В пыльной яме вы сможете хорошенько помянуть старые добрые времена…\n".get_names
+# p "— Ты меня удивил, Айзек. ".get_names
+
+language = :en
+save_csv_file("#{language}/result_#{language}.csv", get_word_list(language), language)
