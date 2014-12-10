@@ -14,8 +14,8 @@
 @interface KeyboardManager : NSObject
 SINGLETON_INTERFACE
 @property (nonatomic, readonly) KeyboardModel* keyBoardModel;
-@property (nonatomic, copy) void (^predictionUpdateCallback)(NSArray* results);
+@property (nonatomic, copy) void (^predictionUpdateCallback)(NSArray* results, NSString* currentResult);
 
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType textInputProxy:(id<UITextDocumentProxy>)textInputProxy;
-
+- (void)processSelectionChangeFrorTextInputProxy:(id<UITextDocumentProxy>)textInputProxy;
 @end

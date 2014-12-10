@@ -11,6 +11,7 @@
 #import "EPStack.h"
 #import "BaseManager.h"
 #import "KeyboardModel.h"
+#import "NSString+Additions.h"
 
 @interface KeyboardManager ()
 @property (nonatomic, strong) EPStack* keyStack;
@@ -28,8 +29,10 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     self = [super init];
     if (self) {
         self.currentType = KeyboardTypeQWERTY;
-        self.currentLanguage = KeyboardTypeABC;
+        self.currentLanguage = KeyboardLangEng;
         self.keyBoardModel = [KeyboardModel new];
+        MANAGER.language = self.currentLanguage;
+        MANAGER.type = self.currentType;
     }
     return self;
 }
@@ -44,6 +47,46 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 }
 
 #pragma mark - processing
+- (void)processSelectionChangeFrorTextInputProxy:(id<UITextDocumentProxy>)textInputProxy
+{
+    NSString* text = textInputProxy.documentContextBeforeInput;
+
+    if (text.length <= 0) {
+        return;
+    }
+
+    NSArray* keyNumbers = [self.keyBoardModel keyNumbersFromText:text
+                                                    keyboardType:self.currentType
+                                                        language:self.currentLanguage];
+
+    [self.keyStack clear];
+    [self.keyStack pushArray:keyNumbers];
+
+    __weak typeof(self) wself = self;
+    [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
+        if(results.count > 0){
+            if (wself.predictionUpdateCallback) {
+                wself.predictionUpdateCallback(results, text);
+            }
+        }
+        else{
+            [MANAGER wordsStartWithKey:[wself keyStory]
+                                result:^(NSArray *words) {
+                                    if(words.count > 0){
+                                        if (wself.predictionUpdateCallback) {
+                                            wself.predictionUpdateCallback(words, text);
+                                        }
+                                    }
+                                    else{
+                                        //TODO: show keys
+                                    }
+                                }];
+            
+        }
+
+    }];
+}
+
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType
                            textInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
@@ -62,17 +105,20 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     case PressedKeyTypeShift:
 
         break;
-    case PressedKeyTypeBackSpace:
+    case PressedKeyTypeBackSpace: {
         if (self.keyStack.count > 0) {
             [self.keyStack pop];
-            [textInputProxy deleteBackward];
-            [textInputProxy deleteBackward];
+            if (textInputProxy.documentContextBeforeInput.length > 0) {
+                [textInputProxy deleteBackward];
+            }
         }
         else {
             [textInputProxy deleteBackward];
         }
-
+        [self processSelectionChangeFrorTextInputProxy:textInputProxy];
+        return;
         break;
+    }
 
     case PressedKeyTypeSmiles:
 
@@ -106,21 +152,41 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
             if(results.count > 0){
                 NSString* topWord = results.firstObject;
-                for (int i = 0; i < wself.keyStack.count - 1; i++) {
+                for (int i = 0; i < self.keyStack.count - 1; i++) {
                     [textInputProxy deleteBackward];
                 }
+                
                 [textInputProxy insertText:topWord];
                 
                 if (wself.predictionUpdateCallback) {
-                    wself.predictionUpdateCallback(results);
+                    wself.predictionUpdateCallback(results, topWord);
                 }
             }
             else{
-                [wself.keyStack pop];
+                [MANAGER wordsStartWithKey:[wself keyStory]
+                                    result:^(NSArray *words) {
+                                        if(words.count > 0){
+                                            NSString* topWord = words.firstObject;
+                                            for (int i = 0; i < self.keyStack.count - 1; i++) {
+                                                [textInputProxy deleteBackward];
+                                            }
+                                            
+                                            NSRange partRange = NSMakeRange(0, wself.keyStack.count);
+                                            topWord = [topWord substringWithRange:partRange];
+                                            
+                                            [textInputProxy insertText:topWord];
+                                        }
+                                        else{
+                                            [wself.keyStack pop];
+                                        }
+                                        
+                                        DLog(@"%@", [self keyStory]);
+                                    }];
+                
             }
             
             DLog(@"%@", [self keyStory]);
-                      }];
+        }];
     }
 }
 

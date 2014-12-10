@@ -19,6 +19,8 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 @interface KeyboardViewController ()
 @property (nonatomic, strong) NSLayoutConstraint* heightConstraint;
 @property (nonatomic, strong) ISKeyboardView* mainKeyboardView;
+
+
 @end
 
 @implementation KeyboardViewController
@@ -34,13 +36,9 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 
     [self loadKeyboardNib];
 
-    [MANAGER wordsStartWithKey:@"111" result:^(NSArray* results) {
-        NSLog(@"%@",results);
-    }];
-
-    [MANAGER wordsForKey:@"111" result:^(NSArray* results) {
-        NSLog(@"%@",results);
-    }];
+    KEYBOARD_MANAGER.predictionUpdateCallback = ^(NSArray* results, NSString* currentResult) {
+        DLog(@"%@", results);
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,27 +58,14 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
                      }];
 
     [self.mainKeyboardView setPredictViewHidden:!portrait withAnimationDuration:duration];
+    [self.mainKeyboardView updateConstraintsInLandscape:!portrait duration:duration];
 }
 
 #pragma mark - UITextInputDelegate
-- (void)textWillChange:(id<UITextInput>)textInput
-{
-    // The app is about to change the document's contents. Perform any preparation
-    // here.
-}
 
 - (void)textDidChange:(id<UITextInput>)textInput
 {
-    // The app has just changed the document's contents, the document context has
-    // been updated.
-}
-
-- (void)selectionWillChange:(id<UITextInput>)textInput
-{
-}
-
-- (void)selectionDidChange:(id<UITextInput>)textInput
-{
+    [KEYBOARD_MANAGER processSelectionChangeFrorTextInputProxy:self.textDocumentProxy];
 }
 
 #pragma mark - Utils
@@ -111,8 +96,8 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
                 break;
                 
             default:
-                [[KeyboardManager sharedInstance] processKeyPressWithPressedKeyType:keyType
-                                                                     textInputProxy:wself.textDocumentProxy];
+                [KEYBOARD_MANAGER processKeyPressWithPressedKeyType:keyType
+                                                     textInputProxy:wself.textDocumentProxy];
                 break;
         }
     };

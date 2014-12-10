@@ -12,11 +12,13 @@
 		10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BA91A17912E00613BB3 /* RWordEng.m */; };
 		10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */ = {isa = PBXBuildFile; fileRef = 10763BAB1A17912E00613BB3 /* RWordRus.m */; };
 		10763BB31A17A18600613BB3 /* Words.realm in Resources */ = {isa = PBXBuildFile; fileRef = 10763BB21A17A18600613BB3 /* Words.realm */; };
+		1079DDDE1A18A4DB00D2E5D6 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */; };
 		7373A65A1A17AE1D00BF6012 /* ISKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6581A17AE1D00BF6012 /* ISKeyboardView.m */; };
 		7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */; };
 		7373A6611A17C36D00BF6012 /* KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6601A17C36D00BF6012 /* KeyboardManager.m */; };
 		7373A6641A17D51400BF6012 /* EPStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7373A6631A17D51400BF6012 /* EPStack.m */; };
 		73A9FEA01A18984E0058B79A /* KeyboardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A9FE9F1A18984E0058B79A /* KeyboardModel.m */; };
+		73B278841A1A4FAD00ED591A /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 73B278831A1A4FAD00ED591A /* NSString+Additions.m */; };
 		73E32A6A1A17545D00EB4BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A691A17545D00EB4BEA /* main.m */; };
 		73E32A6D1A17545D00EB4BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6C1A17545D00EB4BEA /* AppDelegate.m */; };
 		73E32A701A17545D00EB4BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E32A6F1A17545D00EB4BEA /* ViewController.m */; };
@@ -70,6 +72,7 @@
 		10763BAA1A17912E00613BB3 /* RWordRus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWordRus.h; sourceTree = "<group>"; };
 		10763BAB1A17912E00613BB3 /* RWordRus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWordRus.m; sourceTree = "<group>"; };
 		10763BB21A17A18600613BB3 /* Words.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Words.realm; sourceTree = "<group>"; };
+		1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		43CC74D4C628FACBBBEE591B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E59939AA7BF4D9DBA9930BF /* libPods-IntellectKeyboardT9.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntellectKeyboardT9.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7373A6571A17AE1D00BF6012 /* ISKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISKeyboardView.h; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 		73A9FE9F1A18984E0058B79A /* KeyboardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyboardModel.m; path = KeyboardManager/KeyboardModel.m; sourceTree = "<group>"; };
 		73A9FEA11A189A5A0058B79A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		73A9FEA21A189ABB0058B79A /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		73B278821A1A4FAD00ED591A /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Utils/NSString+Additions.h"; sourceTree = "<group>"; };
+		73B278831A1A4FAD00ED591A /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Utils/NSString+Additions.m"; sourceTree = "<group>"; };
 		73E32A641A17545D00EB4BEA /* IntellectT9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntellectT9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E32A681A17545D00EB4BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E32A691A17545D00EB4BEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -180,6 +185,15 @@
 			name = KeyboardManager;
 			sourceTree = "<group>";
 		};
+		73B278811A1A4F6E00ED591A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				73B278821A1A4FAD00ED591A /* NSString+Additions.h */,
+				73B278831A1A4FAD00ED591A /* NSString+Additions.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		73E32A5B1A17545D00EB4BEA = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +261,7 @@
 		73E6D2131A1769EA003BCF03 /* IntellectKeyboardT9 */ = {
 			isa = PBXGroup;
 			children = (
+				73B278811A1A4F6E00ED591A /* Utils */,
 				7373A65E1A17BC7200BF6012 /* KeyboardManager */,
 				10763BA21A17912E00613BB3 /* BaseManager */,
 				7373A65C1A17B8CB00BF6012 /* IntellectKeyboardT9.entitlements */,
@@ -256,6 +271,7 @@
 				73E6D2161A1769EA003BCF03 /* KeyboardViewController.h */,
 				73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */,
 				10763BB21A17A18600613BB3 /* Words.realm */,
+				1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */,
 				73E6D2141A1769EA003BCF03 /* Supporting Files */,
 				7373A6651A17DA4700BF6012 /* defines.h */,
 				73A9FEA11A189A5A0058B79A /* PrefixHeader.pch */,
@@ -415,6 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1079DDDE1A18A4DB00D2E5D6 /* images.xcassets in Resources */,
 				10763BB31A17A18600613BB3 /* Words.realm in Resources */,
 				7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */,
 			);
@@ -481,6 +498,7 @@
 				10763BAD1A17912E00613BB3 /* RWord.m in Sources */,
 				7373A65A1A17AE1D00BF6012 /* ISKeyboardView.m in Sources */,
 				10763BAE1A17912E00613BB3 /* RWordEng.m in Sources */,
+				73B278841A1A4FAD00ED591A /* NSString+Additions.m in Sources */,
 				10763BAF1A17912E00613BB3 /* RWordRus.m in Sources */,
 				10763BAC1A17912E00613BB3 /* BaseManager.m in Sources */,
 				73A9FEA01A18984E0058B79A /* KeyboardModel.m in Sources */,
@@ -612,7 +630,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "da90705d-87de-4e5e-965d-315efdc0dffb";
 			};
 			name = Debug;
 		};
@@ -621,13 +639,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = IntellectT9/IntellectT9.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Intellectsoft LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Intellectsoft LLC";
 				INFOPLIST_FILE = IntellectT9/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "46a5ee79-f85c-4392-9b72-9b491e666c9d";
 			};
 			name = Release;
 		};
@@ -703,8 +721,8 @@
 			baseConfigurationReference = 96FDF4D8EC71B9E6C3AAD7D7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = IntellectKeyboardT9/IntellectKeyboardT9.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Intellectsoft LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Intellectsoft LLC";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/IntellectKeyboardT9/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -722,7 +740,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bcfdfe6c-b01e-44ab-ab00-be4d333bdb29";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
