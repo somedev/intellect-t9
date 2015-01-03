@@ -36,6 +36,7 @@ static CGFloat const kPortraitEnterBottomValue = 57.0;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* predictViewHeightConstraint;
 
+
 - (IBAction)keyUp:(UIButton*)sender;
 
 - (IBAction)keyDown:(UIButton*)sender;

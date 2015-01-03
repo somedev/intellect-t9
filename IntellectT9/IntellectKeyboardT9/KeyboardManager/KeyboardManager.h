@@ -18,4 +18,6 @@ SINGLETON_INTERFACE
 
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType textInputProxy:(id<UITextDocumentProxy>)textInputProxy;
 - (void)processSelectionChangeFrorTextInputProxy:(id<UITextDocumentProxy>)textInputProxy;
+
+- (void)selectedWordFromPrediction:(NSString *)selectedWord;
 @end

@@ -13,6 +13,8 @@
 
 @property (nonatomic, copy) void (^keyPressedCallback)(PressedKeyType keyType);
 
+@property (weak, nonatomic) IBOutlet UICollectionView *predicateView;
+
 - (void)setPredictViewHidden:(BOOL)hidden withAnimationDuration:(CGFloat)duration;
 
 - (void)updateConstraintsInLandscape:(BOOL)landscape duration:(CGFloat)duration;

@@ -51,7 +51,12 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 {
     NSString* text = textInputProxy.documentContextBeforeInput;
 
+    __weak typeof(self) wself = self;
+    
     if (text.length <= 0) {
+        if (wself.predictionUpdateCallback) {
+            wself.predictionUpdateCallback(nil, nil);
+        }
         return;
     }
 
@@ -62,7 +67,6 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     [self.keyStack clear];
     [self.keyStack pushArray:keyNumbers];
 
-    __weak typeof(self) wself = self;
     [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
         if(results.count > 0){
             if (wself.predictionUpdateCallback) {
@@ -196,6 +200,13 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         return 0;
     }
     return [self.keyStack.allItems componentsJoinedByString:@""];
+}
+
+- (void)selectedWordFromPrediction:(NSString *)selectedWord
+{
+    
+    //TODO replace implementation needed
+    DLog(@"selected word %@",selectedWord);
 }
 
 @end

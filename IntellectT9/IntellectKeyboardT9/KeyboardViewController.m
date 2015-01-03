@@ -11,14 +11,19 @@
 #import "KeyboardManager.h"
 #import "ISKeyboardView.h"
 #import "BaseManager.h"
+#import "ISPredicateCell.h"
 
 #pragma mark - Constants
 static CGFloat const kKeyboardHeightPortrait = 260.0;
 static CGFloat const kKeyboardHeightLandscape = 162.0;
 
-@interface KeyboardViewController ()
+static NSString *const predicateCellIdentifier = @"ISPredicateCell";
+
+@interface KeyboardViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSLayoutConstraint* heightConstraint;
 @property (nonatomic, strong) ISKeyboardView* mainKeyboardView;
+
+@property (nonatomic, strong) NSArray* predicateResults;
 
 
 @end
@@ -35,9 +40,16 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
     [super viewDidLoad];
 
     [self loadKeyboardNib];
-
+    
+    _mainKeyboardView.predicateView.delegate = self;
+    _mainKeyboardView.predicateView.dataSource = self;
+    
+    [_mainKeyboardView.predicateView registerNib:[UINib nibWithNibName:predicateCellIdentifier bundle:nil] forCellWithReuseIdentifier:predicateCellIdentifier];
+    
     KEYBOARD_MANAGER.predictionUpdateCallback = ^(NSArray* results, NSString* currentResult) {
         DLog(@"%@", results);
+        _predicateResults = results;
+        [_mainKeyboardView.predicateView reloadData];
     };
 }
 
@@ -48,6 +60,7 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 }
 
 #pragma mark - Rotation
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     BOOL portrait = UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
@@ -120,6 +133,53 @@ static CGFloat const kKeyboardHeightLandscape = 162.0;
 
     [self.view addConstraint:self.heightConstraint];
     [self.view setNeedsLayout];
+}
+
+#pragma mark - UICollectionViewDelegate, UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return  1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if (!_predicateResults)
+    {
+        _mainKeyboardView.predicateView.hidden = YES;
+    } else
+    {
+        _mainKeyboardView.predicateView.hidden = NO;
+    }
+    
+    return _predicateResults.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ISPredicateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:predicateCellIdentifier forIndexPath:indexPath];
+    cell.wordLabel.text = _predicateResults[indexPath.item];
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSString *word = _predicateResults[indexPath.item];
+    
+    CGSize size = [word sizeWithAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:17.0] }];
+    
+    return CGSizeMake(size.width + 40.f, 44.f);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [KEYBOARD_MANAGER selectedWordFromPrediction:_predicateResults[indexPath.item]];
+
+//      TODO uncomment if needed
+//
+//     _predicateResults = nil;
+//     [_mainKeyboardView.predicateView reloadData];
+    
 }
 
 @end

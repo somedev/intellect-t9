@@ -29,6 +29,8 @@
 		73E6D2181A1769EA003BCF03 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */; };
 		73E6D21B1A1769EA003BCF03 /* IntellectKeyboardT9.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 73E6D2121A1769EA003BCF03 /* IntellectKeyboardT9.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		80F6BD60A21708CA7C09C8F5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CC74D4C628FACBBBEE591B /* libPods.a */; };
+		BB1E72101A5825F5002B453A /* ISPredicateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1E720E1A5825F5002B453A /* ISPredicateCell.m */; };
+		BB1E72111A5825F5002B453A /* ISPredicateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB1E720F1A5825F5002B453A /* ISPredicateCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,9 @@
 		73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		96FDF4D8EC71B9E6C3AAD7D7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA5F8FA6B1C83120865956F9 /* libPods-IntellectT9.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IntellectT9.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB1E720D1A5825F5002B453A /* ISPredicateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISPredicateCell.h; sourceTree = "<group>"; };
+		BB1E720E1A5825F5002B453A /* ISPredicateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISPredicateCell.m; sourceTree = "<group>"; };
+		BB1E720F1A5825F5002B453A /* ISPredicateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISPredicateCell.xib; sourceTree = "<group>"; };
 		F858FC24555B5F5FDAEBEEFB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -270,6 +275,9 @@
 				7373A6591A17AE1D00BF6012 /* ISKeyboardView.xib */,
 				73E6D2161A1769EA003BCF03 /* KeyboardViewController.h */,
 				73E6D2171A1769EA003BCF03 /* KeyboardViewController.m */,
+				BB1E720D1A5825F5002B453A /* ISPredicateCell.h */,
+				BB1E720E1A5825F5002B453A /* ISPredicateCell.m */,
+				BB1E720F1A5825F5002B453A /* ISPredicateCell.xib */,
 				10763BB21A17A18600613BB3 /* Words.realm */,
 				1079DDDD1A18A4DB00D2E5D6 /* images.xcassets */,
 				73E6D2141A1769EA003BCF03 /* Supporting Files */,
@@ -432,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1079DDDE1A18A4DB00D2E5D6 /* images.xcassets in Resources */,
+				BB1E72111A5825F5002B453A /* ISPredicateCell.xib in Resources */,
 				10763BB31A17A18600613BB3 /* Words.realm in Resources */,
 				7373A65B1A17AE1D00BF6012 /* ISKeyboardView.xib in Resources */,
 			);
@@ -504,6 +513,7 @@
 				73A9FEA01A18984E0058B79A /* KeyboardModel.m in Sources */,
 				7373A6611A17C36D00BF6012 /* KeyboardManager.m in Sources */,
 				73E6D2181A1769EA003BCF03 /* KeyboardViewController.m in Sources */,
+				BB1E72101A5825F5002B453A /* ISPredicateCell.m in Sources */,
 				7373A6641A17D51400BF6012 /* EPStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
