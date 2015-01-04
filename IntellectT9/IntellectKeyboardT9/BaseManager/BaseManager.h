@@ -26,4 +26,6 @@ SINGLETON_INTERFACE
 - (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 - (void)wordsStartWithKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 
+//search full words matching key and then append words starting with key
+- (void)searchActulWordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock;
 @end

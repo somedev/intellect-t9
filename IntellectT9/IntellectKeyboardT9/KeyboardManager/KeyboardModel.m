@@ -7,6 +7,7 @@
 //
 
 #import "KeyboardModel.h"
+#import "NSString+Additions.h"
 
 @interface KeyboardModel ()
 @property (nonatomic, strong) NSDictionary* keys;
@@ -175,17 +176,9 @@
                   keyboardType:(KeyboardType)keyboardType
                       language:(KeyboardLang)language
 {
-    NSString* trimmedString = [[text stringByTrimmingCharactersInSet:
-                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString];
-    if (trimmedString.length <= 0) {
-        return nil;
-    }
+    NSString* trimmedString = [text lastTextComponent];
 
-    //find spaces in text
-    NSArray* stringsSeparatedBySpaces = [trimmedString componentsSeparatedByString:@" "];
-    trimmedString = stringsSeparatedBySpaces.lastObject;
-
-    if (trimmedString.length <= 0) {
+    if (!trimmedString) {
         return nil;
     }
 

@@ -18,6 +18,7 @@
 @property (nonatomic, assign) KeyboardLang currentLanguage;
 @property (nonatomic, assign) KeyboardType currentType;
 @property (nonatomic, strong) KeyboardModel* keyBoardModel;
+@property (nonatomic, weak) id<UITextDocumentProxy> lastTextInputProxy;
 @end
 
 @implementation KeyboardManager
@@ -31,8 +32,8 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         self.currentType = KeyboardTypeQWERTY;
         self.currentLanguage = KeyboardLangEng;
         self.keyBoardModel = [KeyboardModel new];
-        MANAGER.language = self.currentLanguage;
-        MANAGER.type = self.currentType;
+        DATABASE_MANAGER.language = self.currentLanguage;
+        DATABASE_MANAGER.type = self.currentType;
     }
     return self;
 }
@@ -49,14 +50,12 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 #pragma mark - processing
 - (void)processSelectionChangeFrorTextInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
+    self.lastTextInputProxy = textInputProxy;
     NSString* text = textInputProxy.documentContextBeforeInput;
 
     __weak typeof(self) wself = self;
-    
-    if (text.length <= 0) {
-        if (wself.predictionUpdateCallback) {
-            wself.predictionUpdateCallback(nil, nil);
-        }
+    if (text.length <= 0 || [text endsWithWordSeparator]) {
+        [wself clearStack];
         return;
     }
 
@@ -67,33 +66,25 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
     [self.keyStack clear];
     [self.keyStack pushArray:keyNumbers];
 
-    [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
-        if(results.count > 0){
-            if (wself.predictionUpdateCallback) {
-                wself.predictionUpdateCallback(results, text);
-            }
-        }
-        else{
-            [MANAGER wordsStartWithKey:[wself keyStory]
-                                result:^(NSArray *words) {
-                                    if(words.count > 0){
-                                        if (wself.predictionUpdateCallback) {
-                                            wself.predictionUpdateCallback(words, text);
-                                        }
-                                    }
-                                    else{
-                                        //TODO: show keys
-                                    }
-                                }];
-            
-        }
-
-    }];
+    NSString *lastWord = [text lastTextComponent];
+    
+    [DATABASE_MANAGER searchActulWordsForKey:[self keyStory]
+                                      result:^(NSArray *words) {
+                                          
+                                          if(words.count > 0){
+                                              [wself updatePrediction:words currentWord:lastWord];
+                                          }
+                                          else{
+                                              //TODO: show keys on prediction window
+                                              [wself updatePrediction:@[lastWord] currentWord:lastWord];
+                                          }
+                                      }];
 }
 
 - (void)processKeyPressWithPressedKeyType:(PressedKeyType)keyType
                            textInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
+    self.lastTextInputProxy = textInputProxy;
     switch (keyType) {
     case PressedKeyType1:
     case PressedKeyType2:
@@ -129,7 +120,7 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         break;
     case PressedKeyTypeSpase:
         [textInputProxy insertText:@" "];
-        [self.keyStack clear];
+        [self clearStack];
         break;
     case PressedKeyTypeSpaseLong:
         // open new keyboard
@@ -138,7 +129,7 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         break;
     case PressedKeyTypeEnter:
         [textInputProxy insertText:@"\n"];
-        [self.keyStack clear];
+        [self clearStack];
         break;
 
     default:
@@ -151,47 +142,72 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
 - (void)updateKeysForTextInputProxy:(id<UITextDocumentProxy>)textInputProxy
 {
     if (self.keyStack.count > 0) {
-
+        
         __weak typeof(self) wself = self;
-        [MANAGER wordsForKey:[wself keyStory] result:^(NSArray* results) {
-            if(results.count > 0){
-                NSString* topWord = results.firstObject;
-                for (int i = 0; i < self.keyStack.count - 1; i++) {
-                    [textInputProxy deleteBackward];
-                }
-                
-                [textInputProxy insertText:topWord];
-                
-                if (wself.predictionUpdateCallback) {
-                    wself.predictionUpdateCallback(results, topWord);
-                }
-            }
-            else{
-                [MANAGER wordsStartWithKey:[wself keyStory]
-                                    result:^(NSArray *words) {
-                                        if(words.count > 0){
-                                            NSString* topWord = words.firstObject;
-                                            for (int i = 0; i < self.keyStack.count - 1; i++) {
-                                                [textInputProxy deleteBackward];
-                                            }
-                                            
-                                            NSRange partRange = NSMakeRange(0, wself.keyStack.count);
-                                            topWord = [topWord substringWithRange:partRange];
-                                            
-                                            [textInputProxy insertText:topWord];
-                                        }
-                                        else{
-                                            [wself.keyStack pop];
-                                        }
-                                        
-                                        DLog(@"%@", [self keyStory]);
-                                    }];
-                
-            }
-            
-            DLog(@"%@", [self keyStory]);
-        }];
+        [DATABASE_MANAGER searchActulWordsForKey:[self keyStory]
+                                          result:^(NSArray *results) {
+                                              if(results.count > 0){
+                                                  //clean previous word
+                                                  NSString* topWord = results.firstObject;
+                                                  
+                                                  [self replacePreviousInputWithText:topWord useFullWord:NO];
+                                                  [wself updatePrediction:results currentWord:topWord];
+                                                  
+                                              }
+                                              else{
+                                                  //TODO: show keys on prediction window
+                                                  [wself.keyStack pop];
+                                              }
+                                              
+                                              DLog(@"%@", [self keyStory]);
+                                          }];
+        
     }
+}
+
+
+
+- (void)selectedWordFromPrediction:(NSString *)selectedWord
+{
+    //TODO replace implementation needed
+    DLog(@"selected word %@",selectedWord);
+    [self replacePreviousInputWithText:selectedWord useFullWord:YES];
+    [self processSelectionChangeFrorTextInputProxy:self.lastTextInputProxy];
+}
+
+#pragma mark - Utils
+- (void)replacePreviousInputWithText:(NSString *)text useFullWord:(BOOL)useFullWord
+{
+    if(!self.lastTextInputProxy){
+        return;
+    }
+    
+    //clean previous word
+    NSString *proxyText = self.lastTextInputProxy.documentContextBeforeInput;
+    NSString *lastWord = [proxyText endsWithWordSeparator] ? nil : [proxyText lastTextComponent];
+    if(lastWord){
+        for (int i=0; i<lastWord.length; i++) {
+            [self.lastTextInputProxy deleteBackward];
+        };
+    }
+    
+    NSRange partRange = NSMakeRange(0, self.keyStack.count);
+    NSString *topWord = useFullWord ? text : [text substringWithRange:partRange];
+    
+    [self.lastTextInputProxy insertText:topWord];
+}
+
+- (void)updatePrediction:(NSArray *)results currentWord:(NSString *)currentWord
+{
+    if (self.predictionUpdateCallback) {
+        self.predictionUpdateCallback(results, currentWord);
+    }
+}
+
+- (void)clearStack
+{
+    [self.keyStack clear];
+    [self updatePrediction:nil currentWord:nil];
 }
 
 - (NSString*)keyStory
@@ -200,13 +216,6 @@ SINGLETON_IMPLEMENTATION(KeyboardManager)
         return 0;
     }
     return [self.keyStack.allItems componentsJoinedByString:@""];
-}
-
-- (void)selectedWordFromPrediction:(NSString *)selectedWord
-{
-    
-    //TODO replace implementation needed
-    DLog(@"selected word %@",selectedWord);
 }
 
 @end

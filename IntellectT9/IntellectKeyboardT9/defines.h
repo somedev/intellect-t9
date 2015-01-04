@@ -25,7 +25,7 @@
         return sharedInstance;                                                         \
     }
 
-#define MANAGER [BaseManager sharedInstance]
+#define DATABASE_MANAGER [BaseManager sharedInstance]
 #define KEYBOARD_MANAGER [KeyboardManager sharedInstance]
 
 #endif

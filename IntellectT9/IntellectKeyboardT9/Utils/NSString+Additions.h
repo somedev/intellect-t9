@@ -10,4 +10,5 @@
 
 @interface NSString (Additions)
 - (BOOL)endsWithWordSeparator;
+- (NSString *)lastTextComponent;
 @end

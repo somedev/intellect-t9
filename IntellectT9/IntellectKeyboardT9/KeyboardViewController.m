@@ -24,7 +24,7 @@ static NSString *const predicateCellIdentifier = @"ISPredicateCell";
 @property (nonatomic, strong) ISKeyboardView* mainKeyboardView;
 
 @property (nonatomic, strong) NSArray* predicateResults;
-
+@property (nonatomic, strong) NSString* predicateSelectedWord;
 
 @end
 
@@ -41,15 +41,16 @@ static NSString *const predicateCellIdentifier = @"ISPredicateCell";
 
     [self loadKeyboardNib];
     
-    _mainKeyboardView.predicateView.delegate = self;
-    _mainKeyboardView.predicateView.dataSource = self;
+    self.mainKeyboardView.predicateView.delegate = self;
+    self.mainKeyboardView.predicateView.dataSource = self;
     
-    [_mainKeyboardView.predicateView registerNib:[UINib nibWithNibName:predicateCellIdentifier bundle:nil] forCellWithReuseIdentifier:predicateCellIdentifier];
+    [self.mainKeyboardView.predicateView registerNib:[UINib nibWithNibName:predicateCellIdentifier bundle:nil] forCellWithReuseIdentifier:predicateCellIdentifier];
     
     KEYBOARD_MANAGER.predictionUpdateCallback = ^(NSArray* results, NSString* currentResult) {
         DLog(@"%@", results);
-        _predicateResults = results;
-        [_mainKeyboardView.predicateView reloadData];
+        self.predicateResults = results;
+        self.predicateSelectedWord = currentResult;
+        [self.mainKeyboardView.predicateView reloadData];
     };
 }
 
@@ -144,27 +145,33 @@ static NSString *const predicateCellIdentifier = @"ISPredicateCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (!_predicateResults)
+    if (!self.predicateResults)
     {
-        _mainKeyboardView.predicateView.hidden = YES;
+        self.mainKeyboardView.predicateView.hidden = YES;
     } else
     {
-        _mainKeyboardView.predicateView.hidden = NO;
+        self.mainKeyboardView.predicateView.hidden = NO;
     }
     
-    return _predicateResults.count;
+    return self.predicateResults.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ISPredicateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:predicateCellIdentifier forIndexPath:indexPath];
-    cell.wordLabel.text = _predicateResults[indexPath.item];
+    cell.wordLabel.text = self.predicateResults[indexPath.item];
+    if([cell.wordLabel.text isEqualToString:self.predicateSelectedWord]){
+        cell.wordLabel.textColor = [UIColor redColor];
+    }
+    else {
+        cell.wordLabel.textColor = [UIColor blackColor];
+    }
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSString *word = _predicateResults[indexPath.item];
+    NSString *word = self.predicateResults[indexPath.item];
     
     CGSize size = [word sizeWithAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:17.0] }];
     
@@ -173,7 +180,7 @@ static NSString *const predicateCellIdentifier = @"ISPredicateCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [KEYBOARD_MANAGER selectedWordFromPrediction:_predicateResults[indexPath.item]];
+    [KEYBOARD_MANAGER selectedWordFromPrediction:self.predicateResults[indexPath.item]];
 
 //      TODO uncomment if needed
 //

@@ -50,13 +50,31 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     return path;
 }
 
+- (void)searchActulWordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock
+{
+    [self wordsForKey:key result:^(NSArray *words) {
+        NSMutableArray *allWords = words ? [NSMutableArray arrayWithArray:words] : [NSMutableArray array];
+        [self wordsStartWithKey:key result:^(NSArray *nonFulWords) {
+            if(nonFulWords){
+                [allWords addObjectsFromArray:nonFulWords];
+            }
+            if(resultBlock){
+                resultBlock(allWords);
+            }
+        }];
+        
+    }];
+}
+
 - (void)wordsForKey:(NSString*)key result:(BaseManagerSearchResult)resultBlock
 {
     __weak BaseManager* wSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [wSelf wordsForLanguage:_language type:_type forKey:key command:EQUAL result:^(NSArray *equal) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                resultBlock(equal);
+                if(resultBlock){
+                    resultBlock(equal);
+                }
             });
         }];
     });
@@ -68,7 +86,9 @@ SINGLETON_IMPLEMENTATION(BaseManager)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [wSelf wordsForLanguage:_language type:_type forKey:key command:BEGINSWITH result:^(NSArray *equal) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                resultBlock(equal);
+                if(resultBlock){
+                    resultBlock(equal);
+                }
             });
         }];
     });
